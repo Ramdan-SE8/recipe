@@ -1,0 +1,62 @@
+.details {
+    display: flex;
+    flex-direction: column;
+    width:500px;
+    height:auto;
+    border: 1px solid black;
+    border-radius: 50px;
+    background-color: grey;
+    color: black;
+    justify-content: center;
+    align-items: center;
+}
+
+.image{
+    width:80%;
+    height:300px;
+    object-fit: cover;
+    border-radius: 20px;
+}
+
+.ingredientsList{
+    display:flex;
+    flex-wrap: wrap;
+    height: auto;
+    padding:0px;
+    margin: 0px;
+    justify-content: center;
+    align-items: center;
+}
+
+.ingredientsList li{
+    flex: 1 1 calc(50% - 10px); 
+    margin: 5px; 
+    list-style-type: none; 
+    box-sizing: border-box; 
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+hr {
+    border: 0; 
+    height: 1px;
+    width: 80%;
+    background-color: black; 
+}
+
+.steps{
+    display:flex;
+    flex-direction: column;
+    height: auto;
+    padding:0px 20px;
+    padding-bottom: 20px;
+    margin: 0px;
+    gap:10px;
+}
+
+.steps li{
+    list-style-type: none; 
+    box-sizing: border-box; 
+}
+
