@@ -13,14 +13,6 @@ const NavBar = () => {
         Home
       </NavLink>
       <NavLink
-        to="add"
-        className={({ isActive }) =>
-          isActive ? styles.isActive : styles.notActive
-        }
-      >
-        Add Recipes
-      </NavLink>
-      <NavLink
         to="recipe"
         className={({ isActive }) =>
           isActive ? styles.isActive : styles.notActive
