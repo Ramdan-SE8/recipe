@@ -10,6 +10,7 @@ import Fav from "./components/Fav";
 import Profile from "./components/Profile";
 import Login from "./components/Login";
 import AddRecipe from "./components/AddRecipe";
+import CardList from "./components/CardList";
 
 function App() {
   const [items, setItems] = useState([]);
@@ -52,6 +53,7 @@ function App() {
           <Route path="/" element={<Root />}>
             <Route index element={<Card />} />
             <Route path="about" element={<About />} />
+            <Route path="topten" element={<CardList />} />
             <Route path="add" element={<AddRecipe />} />
 
             <Route
@@ -70,87 +72,6 @@ function App() {
           </Route>
         </Routes>
       </BrowserRouter>
-
-      {/* <div className="App">
-        <div className="col">
-          <Card
-            imgSrc="./src/assets/images/image.png"
-            imgAlt="Card Image 1"
-            title="Recipe Name"
-            description="This is the recipe description section. You can add more details about the recipe here"
-            buttonText="Learn More"
-            link="card2"
-          />
-          <Card
-            imgSrc="./src/assets/images/beefchilli.jpg"
-            imgAlt="Card Image 2"
-            title="Recipe Name"
-            description="This is the recipe description section. You can add more details about the recipe here"
-            buttonText="Learn More"
-            link="card2"
-          />
-          <Card
-            imgSrc="./src/assets/images/carrotmuffin.jpg"
-            imgAlt="Card Image 3"
-            title="Recipe Name"
-            description="This is the recipe description section. You can add more details about the recipe here"
-            buttonText="Learn More"
-            link="card2"
-          />
-        </div>
-        <div className="col">
-          <Card
-            imgSrc="./src/assets/images/djonmustardsalmon.jpg"
-            imgAlt="Card Image 1"
-            title="Recipe Name"
-            description="This is the recipe description section. You can add more details about the recipe here"
-            buttonText="Learn More"
-            link="card1"
-          />
-          <Card
-            imgSrc="./src/assets/images/eggplant.jpeg"
-            imgAlt="Card Image 3"
-            title="Recipe Name"
-            description="This is the recipe description section. You can add more details about the recipe here"
-            buttonText="Learn More"
-            link="card2"
-          />
-          <Card
-            imgSrc="./src/assets/images/garlicpotatoes.jpg"
-            imgAlt="Card Image 3"
-            title="Recipe Name"
-            description="This is the recipe description section. You can add more details about the recipe here"
-            buttonText="Learn More"
-            link="card2"
-          />
-        </div>
-        <div className="col">
-          <Card
-            imgSrc="./src/assets/images/image.png"
-            imgAlt="Card Image 1"
-            title="Recipe Name"
-            description="This is the recipe description section. You can add more details about the recipe here"
-            buttonText="Learn More"
-            link="card2"
-          />
-          <Card
-            imgSrc="./src/assets/images/beefchilli.jpg"
-            imgAlt="Card Image 2"
-            title="Recipe Name"
-            description="This is the recipe description section. You can add more details about the recipe here"
-            buttonText="Learn More"
-            link="card2"
-          />
-          <Card
-            imgSrc="./src/assets/images/carrotmuffin.jpg"
-            imgAlt="Card Image 3"
-            title="Recipe Name"
-            description="This is the recipe description section. You can add more details about the recipe here"
-            buttonText="Learn More"
-            link="card2"
-          />
-        </div>
-      </div> */}
     </>
   );
 }
