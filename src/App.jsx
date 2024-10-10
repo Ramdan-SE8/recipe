@@ -3,13 +3,13 @@ import { BrowserRouter, Route, Routes } from "react-router-dom";
 import "./App.css";
 import Recipe from "./components/Recipe";
 import { Card } from "./components/Card";
-import NavBar from "./components/NavBar";
 import Root from "./components/Root";
 import About from "./components/About";
 import Contact from "./components/ContactUs";
 import Fav from "./components/Fav";
 import Profile from "./components/Profile";
 import Login from "./components/Login";
+import AddRecipe from "./components/AddRecipe";
 
 function App() {
   const [items, setItems] = useState([]);
@@ -52,6 +52,8 @@ function App() {
           <Route path="/" element={<Root />}>
             <Route index element={<Card />} />
             <Route path="about" element={<About />} />
+            <Route path="add" element={<AddRecipe />} />
+
             <Route
               path="recipe"
               element={
@@ -62,7 +64,6 @@ function App() {
                 )
               }
             />
-            <Route path="contact" element={<Contact />} />
             <Route path="fav" element={<Fav />} />
             <Route path="profile" element={<Profile />} />
             <Route path="login" element={<Login />} />
