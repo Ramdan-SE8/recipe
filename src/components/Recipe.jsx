@@ -17,6 +17,8 @@ const Recipe = ({ itemId, items }) => {
         ></img>
       </div>
       <div>
+        <hr />
+
         <h3>Ingredients</h3>
 
         <ul className={styles.ingredientsList}>
@@ -31,7 +33,8 @@ const Recipe = ({ itemId, items }) => {
         <ul className={styles.steps}>
           {selectedItem.steps.map((item, index) => (
             <li key={index}>
-              Steps {index + 1}:{item}
+              <div className={styles.stepNo}>Steps {index + 1}:</div>
+              <div className={styles.stepDet}>{item}</div>
             </li>
           ))}
         </ul>
