@@ -9,6 +9,8 @@ import Contact from "./components/ContactUs";
 import Fav from "./components/Fav";
 import Profile from "./components/Profile";
 import Login from "./components/Login";
+import AddRecipe from "./components/AddRecipe";
+import CardList from "./components/CardList";
 
 function App() {
   const [items, setItems] = useState([]);
@@ -51,6 +53,9 @@ function App() {
           <Route path="/" element={<Root />}>
             <Route index element={<Card />} />
             <Route path="about" element={<About />} />
+            <Route path="topten" element={<CardList />} />
+            <Route path="add" element={<AddRecipe />} />
+
             <Route
               path="recipe"
               element={
