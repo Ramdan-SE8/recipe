@@ -2,10 +2,8 @@ import { useState, useEffect } from "react";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import "./App.css";
 import Recipe from "./components/Recipe";
-import { Card } from "./components/Card";
 import Root from "./components/Root";
 import About from "./components/About";
-import Contact from "./components/ContactUs";
 import Fav from "./components/Fav";
 import Profile from "./components/Profile";
 import Login from "./components/Login";
@@ -51,9 +49,8 @@ function App() {
       <BrowserRouter>
         <Routes>
           <Route path="/" element={<Root />}>
-            <Route index element={<Card />} />
+            <Route index element={<CardList />} />
             <Route path="about" element={<About />} />
-            <Route path="topten" element={<CardList />} />
             <Route path="add" element={<AddRecipe />} />
 
             <Route

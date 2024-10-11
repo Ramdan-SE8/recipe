@@ -1,8 +1,6 @@
 import { NavLink } from "react-router-dom";
 import styles from "./NavBar.module.css";
 
-
-
 const NavBar = () => {
   return (
     <nav className={styles.bar}>
@@ -13,14 +11,6 @@ const NavBar = () => {
         }
       >
         Home
-      </NavLink>
-      <NavLink
-        to="topten"
-        className={({ isActive }) =>
-          isActive ? styles.isActive : styles.notActive
-        }
-      >
-        Top 10 Recipes
       </NavLink>
       <NavLink
         to="add"
