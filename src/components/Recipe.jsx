@@ -1,20 +1,25 @@
+import { useNavigate, useParams } from "react-router-dom";
 import styles from "/src/components/Recipe.module.css";
 
-const Recipe = ({ itemId, items }) => {
-  const selectedItem = items.find((item) => item.id === itemId);
+const Recipe = ({ items }) => {
+  const { id } = useParams(); // Get the id from the URL params
+  const navigate = useNavigate();
+  const handlerBackHome = (event) => {
+    event.preventDefault();
+    navigate(`/`);
+  };
 
+  const selectedItem = items.find((item) => item.id === Number(id));
+  console.log("Selected Item:", selectedItem);
   if (!selectedItem) {
     return <p>item not found!</p>;
   }
   return (
     <div className={styles.details}>
-      <h2>{selectedItem.name}</h2>
+      <h2>{selectedItem.title}</h2>
       <div>
-        <img
-          className={styles.image}
-          src={selectedItem.image}
-          alt="Image of food"
-        ></img>
+        <img src={selectedItem.imgSrc} alt={selectedItem.imgAlt}></img>
+        <p>{selectedItem.description}</p>
       </div>
       <div>
         <hr />
@@ -39,6 +44,7 @@ const Recipe = ({ itemId, items }) => {
           ))}
         </ul>
       </div>
+      <button onClick={handlerBackHome}>Home</button>
     </div>
   );
 };
