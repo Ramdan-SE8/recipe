@@ -4,17 +4,16 @@ import { createContext, useState } from "react";
 export const RecipeContext = createContext();
 
 // Step 2: Set up a Context Provider
-export function RecipeProvider({children}){
+export function RecipeProvider({ children }) {
+  const [selRecipe, setSelRecipe] = useState({});
 
-    const [selRecipe, setSelRecipe] = useState({});
-    
-    const contextValue = {
-        selRecipe,
-        setSelRecipe,
-    };
-    return(
-        <RecipeContext.Provider value={contextValue}>
-            {children}
-        </RecipeContext.Provider>
-    )
+  const contextValue = {
+    selRecipe,
+    setSelRecipe,
+  };
+  return (
+    <RecipeContext.Provider value={contextValue}>
+      {children}
+    </RecipeContext.Provider>
+  );
 }
