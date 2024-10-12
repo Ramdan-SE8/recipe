@@ -1,0 +1,97 @@
+.details {
+    display: flex;
+    flex-direction: column;
+    width:90vw;
+    height:auto;
+    border: 1px solid black;
+    border-radius: 15px;
+    background-color: white;
+    color: black;
+    justify-content: center;
+    align-items: center;
+    position:relative;
+    left:50%;
+    transform: translateX(-50%);  
+}
+
+.details img{
+    height:300px;
+    object-fit: cover;
+    border-radius: 20px;
+}
+
+.ingredientsList{
+    display:flex;
+    flex-wrap: wrap;
+    height: auto;
+    padding:0px;
+    margin: 0px;
+    justify-content: center;
+    align-items: flex;
+}
+
+.ingredientsList li{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 5px; 
+    list-style-type: none; 
+    box-sizing: border-box; 
+    font-size: 15px;
+}
+
+hr {
+    border: 0; 
+    height: 1px;
+    width: 80vw;
+    background-color:black; 
+    
+}
+
+.steps{
+    display:flex;
+    flex-direction: column;
+    height: auto;
+    padding-bottom: 30px;
+    margin: 0px;
+    gap:10px;
+}
+
+.steps li{
+    display:flex;
+    align-items: flex-start;
+    justify-content: flex-start;
+    flex-direction: row;
+    list-style-type: none; 
+    box-sizing: border-box; 
+}
+
+.stepNo{
+    padding-left: 20px;
+    width:80px;
+    text-align: left;
+    flex-shrink: 0; /* Prevents it from shrinking */
+font-size: 15px;
+}
+
+.stepDet{
+    padding-right: 20px;
+    text-align: left;
+    font-size: 15px;
+
+}
+
+
+.details  button {
+    max-width:50px;
+    background-color: grey;
+    color: white;
+    border: none;
+    border-radius: 15px;
+    font-size: 10px;
+    margin-bottom: 20px;
+  }
+  
+.details button:hover {
+    background-color: #2563eb;
+  }
