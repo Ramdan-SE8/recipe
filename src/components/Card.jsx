@@ -1,13 +1,14 @@
 import { useNavigate } from "react-router-dom";
 import styles from "./Card.module.css";
 
-export const Card = ({ items }) => {
+export const Card = ({ items,  favorites, toggleFavorite }) => {
   const navigate = useNavigate();
 
   const handlersShowRecipe = (event, id) => {
     event.preventDefault();
     navigate(`/recipe/${id}`);
   };
+
   return (
     <div className={styles.allCards}>
       {items.map((item, index) => (
@@ -15,13 +16,20 @@ export const Card = ({ items }) => {
           <img src={item.imgSrc} alt={item.title} />
           <h1>{item.title}</h1>
           <p>{item.description}</p>
-          <button
-            onClick={() => handlersShowRecipe(event, item.id)}
+          <button 
+            onClick={(event) => handlersShowRecipe(event, item.id)} // Correct binding
             type="button"
           >
-            Learn More
+          Learn More
           </button>
-          x
+          {/* <button onClick={() => handlersShowRecipe(event, item.id)}
+            type="button">
+            Learn More
+          </button> */}
+          <button 
+            onClick={() => toggleFavorite(item.id)}>
+            {favorites.includes(item.id) ? "Unfavorite" : "Favorite"}
+          </button>
         </div>
       ))}
     </div>

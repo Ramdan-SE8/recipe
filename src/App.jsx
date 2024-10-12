@@ -15,6 +15,7 @@ import recipeAPI from "./api/recipe";
 function App() {
   const [items, setItems] = useState([]);
   const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [favorites, setFavorites] = useState([]);
 
   useEffect(() => {
     const getRecipe = async () => {
@@ -24,16 +25,30 @@ function App() {
     };
     getRecipe();
   }, []);
+
+  const toggleFavorite = (id) => {
+    setFavorites((prevFavorites) =>
+      prevFavorites.includes(id)
+        ? prevFavorites.filter((favId) => favId !== id) // Remove if already a favorite
+        : [...prevFavorites, id] // Add if not already a favorite
+    );
+  };
+
   return (
     <>
       <BrowserRouter>
         <Routes>
           <Route path="/" element={<Root />}>
-            <Route index element={<Card items={items} />} />
+            <Route index element={<Card items={items} favorites={favorites} toggleFavorite={toggleFavorite} />} />
             <Route path="about" element={<About />} />
             <Route path="add" element={<AddRecipe />} />
-            <Route path="recipe/:id" element={<Recipe items={items} />} />
-            <Route path="fav" element={<Fav />} />
+            <Route path="recipe/:id" element={<Recipe items={items} favorites={favorites} toggleFavorite={toggleFavorite} />} />
+            {/* <Route path="fav" element={<Fav />} /> */}
+            <Route
+              path="fav"
+              element={<Fav favoriteItems={items.filter((item) => favorites.includes(item.id))} />}
+            />
+            
             <Route path="profile" element={<Profile />} />
             <Route path="login" element={<Login />} />
           </Route>
