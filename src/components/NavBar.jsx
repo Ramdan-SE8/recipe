@@ -20,14 +20,7 @@ const NavBar = () => {
       >
         Add Recipes
       </NavLink>
-      <NavLink
-        to="recipe"
-        className={({ isActive }) =>
-          isActive ? styles.isActive : styles.notActive
-        }
-      >
-        Recipes
-      </NavLink>
+
       <NavLink
         to="about"
         className={({ isActive }) =>
