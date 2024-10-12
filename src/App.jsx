@@ -14,6 +14,7 @@ import recipeAPI from "./api/recipe";
 
 function App() {
   const [items, setItems] = useState([]);
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
 
   useEffect(() => {
     const getRecipe = async () => {

@@ -56,3 +56,10 @@
 .outlet{
     padding-top: 50px;
 }
+
+.credentials{
+    font-size:0.8rem;
+    position:fixed;
+    width:100%;
+    transform: translateX(33%);  
+}
