@@ -1,27 +1,31 @@
-import React from "react";
+import { useNavigate } from "react-router-dom";
+import styles from "./Card.module.css";
 
-import "./Card.css";
+export const Card = ({ items }) => {
+  const navigate = useNavigate();
 
-export const Card = ({
-  imgSrc,
-  imgAlt,
-  title,
-  description,
-  buttonText,
-  link,
-}) => {
+  const handlersShowRecipe = (event, id) => {
+    event.preventDefault();
+    navigate(`/recipe/${id}`);
+  };
   return (
-    <div className="card-container">
-      {imgSrc && imgAlt && (
-        <img src={imgSrc} alt={imgAlt} className="card-img" />
-      )}
-      {title && <h1 className="card-title">{title}</h1>}
-      {description && <p className="card-description">{description}</p>}
-      {buttonText && link && (
-        <a href={link} className="card-btn">
-          {buttonText}
-        </a>
-      )}
+    <div className={styles.allCards}>
+      {items.map((item, index) => (
+        <div key={index} className={styles.cardContainer}>
+          <img src={item.imgSrc} alt={item.title} />
+          <h1>{item.title}</h1>
+          <p>{item.description}</p>
+          <button
+            onClick={() => handlersShowRecipe(event, item.id)}
+            type="button"
+          >
+            Learn More
+          </button>
+          x
+        </div>
+      ))}
     </div>
   );
 };
+
+export default Card;
