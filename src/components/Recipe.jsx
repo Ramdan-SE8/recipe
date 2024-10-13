@@ -48,9 +48,7 @@ const Recipe = ({ items, refreshRecipes }) => {
   return (
     <div className={styles.details}>
       <div>
-        <div className={styles.imgWrapper}>
-          <img src={selectedItem.imgSrc} alt={selectedItem.imgAlt}></img>
-        </div>
+        <img src={selectedItem.imgSrc} alt={selectedItem.imgAlt}></img>
         <h1>{selectedItem.title}</h1>
         <p>{selectedItem.description}</p>
       </div>
