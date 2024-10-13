@@ -1,7 +1,8 @@
 import { useNavigate, useParams } from "react-router-dom";
 import styles from "/src/components/Recipe.module.css";
+import recipeAPI from "../api/recipe";
 
-const Recipe = ({ items }) => {
+const Recipe = ({ items, refreshRecipes }) => {
   const { id } = useParams(); // Get the id from the URL params
   const navigate = useNavigate();
   const handlerBackHome = (event) => {
@@ -9,7 +10,20 @@ const Recipe = ({ items }) => {
     navigate(`/`);
   };
 
-  const selectedItem = items.find((item) => item.id === Number(id));
+  const handlerDelete = async () => {
+    try {
+      const response = await recipeAPI.delete(`/recipe/${id}`);
+      alert(`Item deleted: ${response.data.title}`); // Show alert with the deleted item's title
+    } catch (error) {
+      console.error("Error deleting recipe:", error);
+      alert("Failed to delete the recipe. Please try again."); // Show error alert
+    } finally {
+      refreshRecipes();
+      navigate(`/`);
+    }
+  };
+
+  const selectedItem = items.find((item) => item.id === id);
   console.log("Selected Item:", selectedItem);
   if (!selectedItem) {
     return <p>item not found!</p>;
@@ -45,6 +59,7 @@ const Recipe = ({ items }) => {
         </ul>
       </div>
       <button onClick={handlerBackHome}>Home</button>
+      <button onClick={handlerDelete}>Delete</button>
     </div>
   );
 };

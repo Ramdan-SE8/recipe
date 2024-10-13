@@ -8,6 +8,7 @@ export const Card = ({ items }) => {
     event.preventDefault();
     navigate(`/recipe/${id}`);
   };
+
   return (
     <div className={styles.allCards}>
       {items.map((item, index) => (
