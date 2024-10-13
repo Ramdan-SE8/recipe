@@ -1,9 +1,6 @@
 import { createContext, useState } from "react";
 import { useNavigate } from "react-router-dom";
 
-
-
-
 export const UserContext = createContext();
 
 export function UserProvider({ children }) {
@@ -14,7 +11,7 @@ export function UserProvider({ children }) {
   //Store Logged In UserName:
   const [loggedInUsername, setLoggedInUsername] = useState("");
   const navigate = useNavigate();
-  
+
   const [isLoggedIn, setIsLoggedIn] = useState(false);
 
   const handleCredentialsChange = (event) => {
@@ -28,7 +25,6 @@ export function UserProvider({ children }) {
   };
 
   const handleLogin = (event) => {
-    
     event.preventDefault();
 
     if (!credentials.username || !credentials.password) {
@@ -50,12 +46,11 @@ export function UserProvider({ children }) {
     } else {
       alert("❌ Invalid credentials");
     }
-    
   };
 
   const handleLogout = () => {
     setIsLoggedIn(false);
-    alert('Logged Out!')
+    alert("Logged Out!");
   };
 
   const contextValue = {
@@ -66,7 +61,7 @@ export function UserProvider({ children }) {
     setIsLoggedIn,
     handleLogout,
     loggedInUsername,
-    setLoggedInUsername
+    setLoggedInUsername,
   };
 
   return (

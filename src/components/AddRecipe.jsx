@@ -1,12 +1,15 @@
-import { useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import styles from "./AddRecipe.module.css";
 import { v4 as uuid } from "uuid";
 import recipeAPI from "../api/recipe";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
+import { isEditingContext } from "../context/isEditingContext";
 
 const AddRecipe = ({ refreshRecipes }) => {
   const navigate = useNavigate();
+  const location = useLocation();
 
+  // States
   const [ingredients, setIngredients] = useState([""]);
   const [steps, setSteps] = useState([""]);
   const [recipe, setRecipe] = useState({
@@ -14,81 +17,124 @@ const AddRecipe = ({ refreshRecipes }) => {
     title: "",
     description: "",
   });
+  const editCtx = useContext(isEditingContext);
+  const { isEditing, setIsEditing } = editCtx;
 
+  useEffect(() => {
+    if (location.state && location.state.recipeToEdit) {
+      const recipeData = location.state.recipeToEdit;
+      setRecipe({
+        id: recipeData.id,
+        imgSrc: recipeData.imgSrc,
+        title: recipeData.title,
+        description: recipeData.description,
+      });
+      setIngredients(recipeData.ingredients);
+      setSteps(recipeData.steps);
+    }
+  }, [location.state, setIsEditing]);
+
+  // API call to add new recipe
   const addRecipe = async (recipe) => {
     try {
       const response = await recipeAPI.post("/recipe", recipe);
       console.log("Recipe added:", response.data);
+      refreshRecipes();
+      navigate(`/`);
     } catch (error) {
       console.error("Error adding recipe:", error);
     } finally {
-      refreshRecipes();
-      navigate(`/`);
       alert(
         `item added:\nTitle: ${recipe.title}\nDescription: ${recipe.description}\nIngredients: ${recipe.ingredients}\nRecipe: ${recipe.steps}`
       );
     }
   };
 
+  const editRecipe = async (recipe) => {
+    try {
+      const response = await recipeAPI.put(`/recipe/${recipe.id}`, recipe);
+      console.log("Recipe edited:", response.data);
+      refreshRecipes();
+      navigate(`/`);
+      setIsEditing(false);
+    } catch (error) {
+      console.error("Error adding recipe:", error);
+    } finally {
+      alert(
+        `item edited:\nTitle: ${recipe.title}\nDescription: ${recipe.description}\nIngredients: ${recipe.ingredients}\nRecipe: ${recipe.steps}`
+      );
+    }
+  };
+
+  // to create an combined all states and pass it into the API call function
   const handlerSubmit = (e) => {
     e.preventDefault();
     const updatedRecipe = {
       ...recipe,
       ingredients: ingredients,
       steps: steps,
-      id: uuid(),
+      id: !isEditing ? uuid() : recipe.id,
     };
-    addRecipe(updatedRecipe);
+    !isEditing ? addRecipe(updatedRecipe) : editRecipe(updatedRecipe);
   };
 
+  // to reset all the states inside all input fields when user click cancel
   const handlerCancel = () => {
-    setIngredients([""]); // Reset ingredients
-    setSteps([""]); // Reset steps
+    setIngredients([""]);
+    setSteps([""]);
     setRecipe({
       imgSrc: "",
       title: "",
       description: "",
-    }); // Reset recipe
-    console.log("Recipe adding canceled");
+    });
   };
 
+  // takes in index and values from the input field to help identify ingredients in the array
+  // updates thes value of the ingredients from the specific index
   const handlerIngredients = (index, value) => {
     const updatedIngredients = [...ingredients];
-    updatedIngredients[index] = value; // Set the specific ingredient
+    updatedIngredients[index] = value;
     setIngredients(updatedIngredients);
   };
 
+  // takes in index and values from the input field to help identify steps in the array
+  // updates thes value of the steps from the specific index
   const handlerSteps = (index, value) => {
     const updatedSteps = [...steps];
-    updatedSteps[index] = value; // Set the specific ingredient
+    updatedSteps[index] = value;
     setSteps(updatedSteps);
   };
 
+  // destructures name and value from the event target (the input field)
+  // dynamically sets the corresponding recipe field to the input value
   const handlerInput = (e) => {
     e.preventDefault();
     const { name, value } = e.target;
     setRecipe((pervRecipe) => ({ ...pervRecipe, [name]: value }));
   };
 
+  // to add 1 more empty string inside the array so it can be mapped out as a input field
   const addIngredient = () => {
     setIngredients((prevIngredient) => [...prevIngredient, ""]);
   };
 
+  // to add 1 more empty string inside the array so it can be mapped out as a input field
   const addStep = () => {
     setSteps((prevStep) => [...prevStep, ""]);
   };
 
-  console.log(recipe);
   return (
     <>
       <div className={styles.form}>
         <div className={styles.main}>
-          <h1 className={styles.text}>Add Recipe</h1>
-          <button className={styles.addButton} onClick={handlerSubmit}>
-            Save
+          <h1 className={styles.text}>
+            {!isEditing ? "Add Recipe" : "Edit Recipe"}
+          </h1>
+          <button className={styles.button} onClick={handlerSubmit}>
+            {!isEditing ? "Add" : "Save"}
           </button>
           <button
-            className={styles.addButton}
+            className={styles.button}
             type="button"
             onClick={handlerCancel}
           >
@@ -128,6 +174,7 @@ const AddRecipe = ({ refreshRecipes }) => {
         </div>
 
         <h2 className={styles.text}>Ingredients</h2>
+        {/* map out the array inside ingredients state and display a text area for user to input */}
         {ingredients.map((ingredient, index) => (
           <div className={styles.group} key={index}>
             <label className={styles.label}>Ingredient {index + 1} :</label>
@@ -140,6 +187,8 @@ const AddRecipe = ({ refreshRecipes }) => {
             />
           </div>
         ))}
+
+        {/* handler to add empty string inside the ingredients array to be map as a new text area field */}
         <button
           className={styles.addButton}
           type="button"
@@ -149,7 +198,7 @@ const AddRecipe = ({ refreshRecipes }) => {
         </button>
 
         <h2 className={styles.text}>Steps</h2>
-
+        {/* map out the array inside steps state and display a text area for user to input */}
         {steps.map((step, index) => (
           <div className={styles.group} key={index}>
             <label className={styles.label}>Step {index + 1} :</label>
@@ -162,6 +211,8 @@ const AddRecipe = ({ refreshRecipes }) => {
             />
           </div>
         ))}
+
+        {/* handler to add empty string inside the ingredients array to be map as a new text area field */}
         <button className={styles.addButton} type="button" onClick={addStep}>
           +
         </button>
@@ -171,5 +222,3 @@ const AddRecipe = ({ refreshRecipes }) => {
 };
 
 export default AddRecipe;
-
-// need to add handlers, states, validations for user inputs

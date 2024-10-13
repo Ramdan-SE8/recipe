@@ -15,7 +15,6 @@
 .cardContainer {
   display: flex;
   align-items: center;
-  width: calc(25% - 30px); /* Adjust to 25% for four cards per row */
   max-width: 300px;
   height: 600px;
   border-radius: 15px;
@@ -43,12 +42,12 @@
 .cardContainer p {
   min-height:100px;
   max-height:100px;
-  margin:10px; 
+  margin:0px; 
   color: black;
 }
 
 .cardContainer button {
-  width:150px;
+  width:130px;
   background-color: grey;
   color: white;
   border: none;

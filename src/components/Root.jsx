@@ -4,20 +4,17 @@ import styles from "./NavBar.module.css";
 import { RecipeProvider } from "../context/RecipeContext";
 import { UserProvider } from "../context/UserContext";
 
-
-
 const Root = () => {
-
   return (
     <>
-    <UserProvider>
-      <NavBar />
+      <UserProvider>
+        <NavBar />
 
-      <RecipeProvider>
-      <div className={styles.outlet}>
-        <Outlet />
-      </div>
-      </RecipeProvider>
+        <RecipeProvider>
+          <div className={styles.outlet}>
+            <Outlet />
+          </div>
+        </RecipeProvider>
       </UserProvider>
     </>
   );
