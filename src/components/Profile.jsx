@@ -1,7 +1,7 @@
 // components/Profile.js
-import React, { useContext } from 'react';
-import { UserContext } from '../context/UserContext';
-import './Profile.css'; // You can create this CSS file to style your profile
+import React, { useContext } from "react";
+import { UserContext } from "../context/UserContext";
+import "./Profile.css"; // You can create this CSS file to style your profile
 
 const Profile = () => {
   const { loggedInUsername, isLoggedIn } = useContext(UserContext);
@@ -9,7 +9,8 @@ const Profile = () => {
   // Sample user data for demonstration. In a real app, this could be fetched from an API.
   const userData = {
     displayName: loggedInUsername || "Guest",
-    avatar: "https://example.com/avatar.jpg", // Replace with an actual avatar URL
+    avatar:
+      "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRQG6U7DsIIUVQmkDyihIPWI-aBCmeLli02NQ&s",
     aboutMe: "I love cooking and trying out new recipes!",
   };
 
@@ -21,8 +22,15 @@ const Profile = () => {
     <div className="profile-container">
       <h1>{userData.displayName}'s Profile</h1>
       <div className="profile-card">
-        <img src={userData.avatar} alt="User Avatar" className="profile-avatar" />
-        <p><strong>About Me:</strong> {userData.aboutMe}</p>
+        <img
+          src={userData.avatar}
+          alt="User Avatar"
+          className="profile-avatar"
+        />
+        <p>
+          <strong>About Me:</strong>
+          <br /> {userData.aboutMe}
+        </p>
       </div>
     </div>
   );

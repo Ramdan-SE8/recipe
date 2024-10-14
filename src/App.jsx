@@ -16,6 +16,7 @@ import Default from "./components/Default";
 
 function App() {
   const [items, setItems] = useState([]);
+  const [favorites, setFavorites] = useState([]);
 
   // API to get all the recipes
   const getRecipe = async () => {
@@ -43,46 +44,69 @@ function App() {
   return (
     <>
       <BrowserRouter>
-        <Routes>
-          <Route path="/" element={<Root />}>
-            <Route
-              index
-              element={
-                <Card
-                  items={items}
-                  favorites={favorites}
-                  toggleFavorite={toggleFavorite}
-                />
-              }
-            />
-            <Route path="about" element={<About />} />
-            <Route path="add" element={<AddRecipe />} />
-            <Route
-              path="recipe/:id"
-              element={
-                <Recipe
-                  items={items}
-                  favorites={favorites}
-                  toggleFavorite={toggleFavorite}
-                />
-              }
-            />
-            {/* <Route path="fav" element={<Fav />} /> */}
-            <Route
-              path="fav"
-              element={
-                <Fav
-                  favoriteItems={items.filter((item) =>
-                    favorites.includes(item.id)
-                  )}
-                />
-              }
-            />
+        <IsEditingProvider>
+          <Routes>
+            <Route path="/" element={<Root />}>
+              <Route
+                index
+                element={
+                  <Card
+                    items={items}
+                    favorites={favorites}
+                    toggleFavorite={toggleFavorite}
+                  />
+                }
+              />
+              <Route path="about" element={<About />} />
+              <Route
+                path="add"
+                element={
+                  <ProtectedRoute>
+                    <AddRecipe refreshRecipes={getRecipe} />
+                  </ProtectedRoute>
+                }
+              />
+              <Route
+                path="recipe/:id"
+                element={
+                  <ProtectedRoute>
+                    <Recipe
+                      items={items}
+                      favorites={favorites}
+                      toggleFavorite={toggleFavorite}
+                      refreshRecipes={getRecipe}
+                    />
+                  </ProtectedRoute>
+                }
+              />
+              {/* <Route path="fav" element={<Fav />} /> */}
+              <Route
+                path="fav"
+                element={
+                  <ProtectedRoute>
+                    <Fav
+                      favoriteItems={items.filter((item) =>
+                        favorites.includes(item.id)
+                      )}
+                      favorites={favorites}
+                      toggleFavorite={toggleFavorite}
+                    />
+                  </ProtectedRoute>
+                }
+              />
 
-            <Route path="profile" element={<Profile />} />
-            <Route path="login" element={<Login />} />
-          </Route>
-        </Routes>
+              <Route
+                path="profile"
+                element={
+                  <ProtectedRoute>
+                    <Profile />
+                  </ProtectedRoute>
+                }
+              />
+              <Route path="login" element={<Login />} />
+            </Route>
+          </Routes>
+        </IsEditingProvider>
       </BrowserRouter>
     </>
   );

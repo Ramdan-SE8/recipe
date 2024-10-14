@@ -1,13 +1,12 @@
 import { useNavigate } from "react-router-dom";
 import styles from "./Card.module.css";
+import { useContext } from "react";
+import { UserContext } from "../context/UserContext";
 
-export const Card = ({ items,  favorites, toggleFavorite }) => {
+export const Card = ({ items, favorites, toggleFavorite }) => {
   const navigate = useNavigate();
-
-  const handlersShowRecipe = (event, id) => {
-    event.preventDefault();
-    navigate(`/recipe/${id}`);
-  };
+  const userCtx = useContext(UserContext);
+  const { isLoggedIn } = userCtx;
 
   return (
     <div className={styles.allCards}>
@@ -16,20 +15,22 @@ export const Card = ({ items,  favorites, toggleFavorite }) => {
           <img src={item.imgSrc} alt={item.title} />
           <h1>{item.title}</h1>
           <p>{item.description}</p>
-          <button 
-            onClick={(event) => handlersShowRecipe(event, item.id)} // Correct binding
-            type="button"
-          >
-          Learn More
-          </button>
-          {/* <button onClick={() => handlersShowRecipe(event, item.id)}
-            type="button">
-            Learn More
-          </button> */}
-          <button 
-            onClick={() => toggleFavorite(item.id)}>
-            {favorites.includes(item.id) ? "Unfavorite" : "Favorite"}
-          </button>
+          {isLoggedIn && (
+            <div className={styles.allButtons}>
+              <button
+                onClick={(event) => {
+                  event.preventDefault();
+                  navigate(`/recipe/${item.id}`);
+                }}
+                type="button"
+              >
+                Learn More
+              </button>
+              <button onClick={() => toggleFavorite(item.id)}>
+                {favorites.includes(item.id) ? "Unfavorite" : "Favorite"}
+              </button>
+            </div>
+          )}
         </div>
       ))}
     </div>

@@ -1,7 +1,7 @@
 import { createContext, useState } from "react";
 
 // Step 1: Create a context object
-export const isEditingContext = createContext();
+export const IsEditingContext = createContext();
 
 // Step 2: Set up a Context Provider
 export function IsEditingProvider({ children }) {
@@ -12,8 +12,8 @@ export function IsEditingProvider({ children }) {
     setIsEditing,
   };
   return (
-    <isEditingContext.Provider value={contextValue}>
+    <IsEditingContext.Provider value={contextValue}>
       {children}
-    </isEditingContext.Provider>
+    </IsEditingContext.Provider>
   );
 }

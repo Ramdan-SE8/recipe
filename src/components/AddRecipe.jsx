@@ -3,7 +3,7 @@ import styles from "./AddRecipe.module.css";
 import { v4 as uuid } from "uuid";
 import recipeAPI from "../api/recipe";
 import { useNavigate, useLocation } from "react-router-dom";
-import { isEditingContext } from "../context/isEditingContext";
+import { IsEditingContext } from "../context/isEditingContext";
 
 const AddRecipe = ({ refreshRecipes }) => {
   const navigate = useNavigate();
@@ -17,7 +17,7 @@ const AddRecipe = ({ refreshRecipes }) => {
     title: "",
     description: "",
   });
-  const editCtx = useContext(isEditingContext);
+  const editCtx = useContext(IsEditingContext);
   const { isEditing, setIsEditing } = editCtx;
 
   useEffect(() => {
@@ -87,6 +87,8 @@ const AddRecipe = ({ refreshRecipes }) => {
       title: "",
       description: "",
     });
+    setIsEditing(false);
+    !isEditing ? navigate("/") : navigate(`/recipe/${recipe.id}`);
   };
 
   // takes in index and values from the input field to help identify ingredients in the array

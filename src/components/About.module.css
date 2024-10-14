@@ -5,4 +5,12 @@
     align-content: center;
     justify-content: space-between;
     gap:20px;
+    
+}
+
+.teamContainer a{
+    color:white;
+    font-size: 15px;
+    font-weight: 500;
+    text-decoration: none;
 }

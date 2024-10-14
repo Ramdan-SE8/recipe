@@ -2,11 +2,11 @@ import { NavLink } from "react-router-dom";
 import styles from "./NavBar.module.css";
 import { useContext } from "react";
 import { UserContext } from "../context/UserContext";
-import { isEditingContext } from "../context/isEditingContext";
+import { IsEditingContext } from "../context/isEditingContext";
 
 const NavBar = () => {
   const userCtx = useContext(UserContext);
-  const editCtx = useContext(isEditingContext);
+  const editCtx = useContext(IsEditingContext);
   const { isLoggedIn, handleLogout, loggedInUsername } = userCtx;
 
   const { isEditing } = editCtx;
