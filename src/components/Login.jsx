@@ -12,6 +12,14 @@ const Login = () => {
     handleLogout,
   } = userCtx;
 
+  const handleSubmit = (event) => {
+    event.preventDefault();
+    handleLogin(event); // Call the existing login handler
+    if (loggedInUsername) {
+      navigate("/profile"); // Redirect to profile after login
+    }
+  };
+
   return (
     <div>
       <form onSubmit={handleLogin}>

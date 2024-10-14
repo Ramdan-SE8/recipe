@@ -29,8 +29,8 @@ function App() {
   const toggleFavorite = (id) => {
     setFavorites((prevFavorites) =>
       prevFavorites.includes(id)
-        ? prevFavorites.filter((favId) => favId !== id) // Remove if already a favorite
-        : [...prevFavorites, id] // Add if not already a favorite
+        ? prevFavorites.filter((favId) => favId !== id) 
+        : [...prevFavorites, id] 
     );
   };
 
