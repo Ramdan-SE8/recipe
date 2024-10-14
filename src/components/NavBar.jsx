@@ -28,14 +28,16 @@ const NavBar = () => {
         >
           Home
         </NavLink>
-        <NavLink
-          to="add"
-          className={({ isActive }) =>
-            isActive ? styles.isActive : styles.notActive
-          }
-        >
-          {!isEditing ? "Add Recipe" : "Edit Recipe"}
-        </NavLink>
+        {isLoggedIn && (
+          <NavLink
+            to="add"
+            className={({ isActive }) =>
+              isActive ? styles.isActive : styles.notActive
+            }
+          >
+            {!isEditing ? "Add Recipe" : "Edit Recipe"}
+          </NavLink>
+        )}
 
         <NavLink
           to="about"
@@ -46,22 +48,26 @@ const NavBar = () => {
           About
         </NavLink>
 
-        <NavLink
-          to="fav"
-          className={({ isActive }) =>
-            isActive ? styles.isActive : styles.notActive
-          }
-        >
-          Fav List
-        </NavLink>
-        <NavLink
-          to="profile"
-          className={({ isActive }) =>
-            isActive ? styles.isActive : styles.notActive
-          }
-        >
-          Profile Settings
-        </NavLink>
+        {isLoggedIn && (
+          <NavLink
+            to="fav"
+            className={({ isActive }) =>
+              isActive ? styles.isActive : styles.notActive
+            }
+          >
+            Fav List
+          </NavLink>
+        )}
+        {isLoggedIn && (
+          <NavLink
+            to="profile"
+            className={({ isActive }) =>
+              isActive ? styles.isActive : styles.notActive
+            }
+          >
+            Profile Settings
+          </NavLink>
+        )}
 
         {isLoggedIn === false ? (
           <NavLink

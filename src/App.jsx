@@ -11,6 +11,8 @@ import AddRecipe from "./components/AddRecipe";
 import Card from "./components/Card";
 import recipeAPI from "./api/recipe";
 import { IsEditingProvider } from "./context/isEditingContext";
+import ProtectedRoute from "./components/ProtectedRoute";
+import Default from "./components/Default";
 
 function App() {
   const [items, setItems] = useState([]);
@@ -41,15 +43,38 @@ function App() {
               <Route path="about" element={<About />} />
               <Route
                 path="add"
-                element={<AddRecipe refreshRecipes={getRecipe} />}
+                element={
+                  <ProtectedRoute>
+                    <AddRecipe refreshRecipes={getRecipe} />
+                  </ProtectedRoute>
+                }
               />
               <Route
                 path="recipe/:id"
-                element={<Recipe items={items} refreshRecipes={getRecipe} />}
+                element={
+                  <ProtectedRoute>
+                    <Recipe items={items} refreshRecipes={getRecipe} />
+                  </ProtectedRoute>
+                }
               />
-              <Route path="fav" element={<Fav />} />
-              <Route path="profile" element={<Profile />} />
+              <Route
+                path="fav"
+                element={
+                  <ProtectedRoute>
+                    <Fav />
+                  </ProtectedRoute>
+                }
+              />
+              <Route
+                path="profile"
+                element={
+                  <ProtectedRoute>
+                    <Profile />
+                  </ProtectedRoute>
+                }
+              />
               <Route path="login" element={<Login />} />
+              <Route path="*" element={<Default />} />
             </Route>
           </Routes>
         </IsEditingProvider>
