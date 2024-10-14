@@ -15,6 +15,7 @@ import { IsEditingProvider } from "./context/isEditingContext";
 function App() {
   const [items, setItems] = useState([]);
   const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [favorites, setFavorites] = useState([]);
 
   // API to get all the recipes
   const getRecipe = async () => {
@@ -31,28 +32,33 @@ function App() {
     getRecipe();
   }, []);
 
+  const toggleFavorite = (id) => {
+    setFavorites((prevFavorites) =>
+      prevFavorites.includes(id)
+        ? prevFavorites.filter((favId) => favId !== id) 
+        : [...prevFavorites, id] 
+    );
+  };
+
   return (
     <>
       <BrowserRouter>
-        <IsEditingProvider>
-          <Routes>
-            <Route path="/" element={<Root />}>
-              <Route index element={<Card items={items} />} />
-              <Route path="about" element={<About />} />
-              <Route
-                path="add"
-                element={<AddRecipe refreshRecipes={getRecipe} />}
-              />
-              <Route
-                path="recipe/:id"
-                element={<Recipe items={items} refreshRecipes={getRecipe} />}
-              />
-              <Route path="fav" element={<Fav />} />
-              <Route path="profile" element={<Profile />} />
-              <Route path="login" element={<Login />} />
-            </Route>
-          </Routes>
-        </IsEditingProvider>
+        <Routes>
+          <Route path="/" element={<Root />}>
+            <Route index element={<Card items={items} favorites={favorites} toggleFavorite={toggleFavorite} />} />
+            <Route path="about" element={<About />} />
+            <Route path="add" element={<AddRecipe />} />
+            <Route path="recipe/:id" element={<Recipe items={items} favorites={favorites} toggleFavorite={toggleFavorite} />} />
+            {/* <Route path="fav" element={<Fav />} /> */}
+            <Route
+              path="fav"
+              element={<Fav favoriteItems={items.filter((item) => favorites.includes(item.id))} />}
+            />
+            
+            <Route path="profile" element={<Profile />} />
+            <Route path="login" element={<Login />} />
+          </Route>
+        </Routes>
       </BrowserRouter>
     </>
   );

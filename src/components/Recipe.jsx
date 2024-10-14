@@ -4,7 +4,8 @@ import recipeAPI from "../api/recipe";
 import { useContext } from "react";
 import { isEditingContext } from "../context/isEditingContext";
 
-const Recipe = ({ items, refreshRecipes }) => {
+const Recipe = ({ items, favorites, toggleFavorite }) => {
+  const { id } = useParams(); // Get the id from the URL params
   const navigate = useNavigate();
   const editCtx = useContext(isEditingContext);
   const { setIsEditing } = editCtx;
@@ -24,6 +25,10 @@ const Recipe = ({ items, refreshRecipes }) => {
     }
   };
 
+  const selectedItem = items.find((item) => item.id === Number(id));
+  const isFavorite = favorites.includes(Number(id));
+
+  console.log("Selected Item:", selectedItem);
   const handlerEdit = async () => {
     try {
       const response = await recipeAPI.get(`/recipe/${id}`);
@@ -74,6 +79,11 @@ const Recipe = ({ items, refreshRecipes }) => {
         </ul>
       </div>
 
+      <button onClick={() => toggleFavorite(selectedItem.id)}>
+        {isFavorite ? "Unfavorite" : "Favorite"}
+      </button>
+
+      <button onClick={handlerBackHome}>Home</button>
       {/* buttons to navigate back home, delete entry and edit entry */}
       <div className={styles.buttonGroup}>
         <button
