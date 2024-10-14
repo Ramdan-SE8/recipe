@@ -17,6 +17,9 @@
     margin: 0;
     flex-wrap:wrap
 }
+
+
+
 .notActive{
     color: black; /* Example color */
     text-decoration: none; /* Remove underline */

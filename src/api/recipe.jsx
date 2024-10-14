@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const BASE_URL = "https://ddc22abc-c358-44e6-b8ec-5298c98dbb7b.mock.pstmn.io";
+const BASE_URL = "https://670b7d63ac6860a6c2cc2ef0.mockapi.io/recipe";
 
 const recipeAPI = axios.create({ baseURL: BASE_URL });
 

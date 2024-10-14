@@ -8,21 +8,27 @@ import Fav from "./components/Fav";
 import Profile from "./components/Profile";
 import Login from "./components/Login";
 import AddRecipe from "./components/AddRecipe";
-// import dummyCardList from "./components/CardList";
 import Card from "./components/Card";
 import recipeAPI from "./api/recipe";
+import { IsEditingProvider } from "./context/isEditingContext";
 
 function App() {
   const [items, setItems] = useState([]);
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [favorites, setFavorites] = useState([]);
 
-  useEffect(() => {
-    const getRecipe = async () => {
-      const response = await recipeAPI.get("/recipes");
-      console.log(response);
+  // API to get all the recipes
+  const getRecipe = async () => {
+    try {
+      const response = await recipeAPI.get("/recipe");
       setItems(response.data);
-    };
+    } catch (error) {
+      console.error("Error getting recipes:", error);
+    }
+  };
+
+  // using useEffect to only display the recipes on first render
+  useEffect(() => {
     getRecipe();
   }, []);
 
