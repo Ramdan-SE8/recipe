@@ -16,7 +16,6 @@ import Default from "./components/Default";
 
 function App() {
   const [items, setItems] = useState([]);
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
 
   // API to get all the recipes
   const getRecipe = async () => {

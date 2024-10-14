@@ -7,14 +7,7 @@ import { isEditingContext } from "../context/isEditingContext";
 const NavBar = () => {
   const userCtx = useContext(UserContext);
   const editCtx = useContext(isEditingContext);
-  const {
-    credentials,
-    handleLogin,
-    isLoggedIn,
-    setIsLoggedIn,
-    handleLogout,
-    loggedInUsername,
-  } = userCtx;
+  const { isLoggedIn, handleLogout, loggedInUsername } = userCtx;
 
   const { isEditing } = editCtx;
   return (
