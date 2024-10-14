@@ -32,51 +32,57 @@ function App() {
     getRecipe();
   }, []);
 
+  const toggleFavorite = (id) => {
+    setFavorites((prevFavorites) =>
+      prevFavorites.includes(id)
+        ? prevFavorites.filter((favId) => favId !== id)
+        : [...prevFavorites, id]
+    );
+  };
+
   return (
     <>
       <BrowserRouter>
-        <IsEditingProvider>
-          <Routes>
-            <Route path="/" element={<Root />}>
-              <Route index element={<Card items={items} />} />
-              <Route path="about" element={<About />} />
-              <Route
-                path="add"
-                element={
-                  <ProtectedRoute>
-                    <AddRecipe refreshRecipes={getRecipe} />
-                  </ProtectedRoute>
-                }
-              />
-              <Route
-                path="recipe/:id"
-                element={
-                  <ProtectedRoute>
-                    <Recipe items={items} refreshRecipes={getRecipe} />
-                  </ProtectedRoute>
-                }
-              />
-              <Route
-                path="fav"
-                element={
-                  <ProtectedRoute>
-                    <Fav />
-                  </ProtectedRoute>
-                }
-              />
-              <Route
-                path="profile"
-                element={
-                  <ProtectedRoute>
-                    <Profile />
-                  </ProtectedRoute>
-                }
-              />
-              <Route path="login" element={<Login />} />
-              <Route path="*" element={<Default />} />
-            </Route>
-          </Routes>
-        </IsEditingProvider>
+        <Routes>
+          <Route path="/" element={<Root />}>
+            <Route
+              index
+              element={
+                <Card
+                  items={items}
+                  favorites={favorites}
+                  toggleFavorite={toggleFavorite}
+                />
+              }
+            />
+            <Route path="about" element={<About />} />
+            <Route path="add" element={<AddRecipe />} />
+            <Route
+              path="recipe/:id"
+              element={
+                <Recipe
+                  items={items}
+                  favorites={favorites}
+                  toggleFavorite={toggleFavorite}
+                />
+              }
+            />
+            {/* <Route path="fav" element={<Fav />} /> */}
+            <Route
+              path="fav"
+              element={
+                <Fav
+                  favoriteItems={items.filter((item) =>
+                    favorites.includes(item.id)
+                  )}
+                />
+              }
+            />
+
+            <Route path="profile" element={<Profile />} />
+            <Route path="login" element={<Login />} />
+          </Route>
+        </Routes>
       </BrowserRouter>
     </>
   );
