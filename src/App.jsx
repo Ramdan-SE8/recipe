@@ -12,7 +12,6 @@ import Card from "./components/Card";
 import recipeAPI from "./api/recipe";
 import { IsEditingProvider } from "./context/isEditingContext";
 import ProtectedRoute from "./components/ProtectedRoute";
-import Default from "./components/Default";
 
 function App() {
   const [items, setItems] = useState([]);
