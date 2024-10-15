@@ -8,18 +8,22 @@ const Login = () => {
 
   return (
     <div>
-      <form onSubmit={handleLogin} className="loginContainer">
+      <form onSubmit={handleLogin} className="loginContainer mt-4">
         <div>
-          <label htmlFor="username">Username: </label>
+          <label htmlFor="username" className="form-label">
+            Username:{" "}
+          </label>
           <input
+            className="form-control"
             name="username"
             value={credentials.username}
             onChange={handleCredentialsChange}
           />
         </div>
         <div>
-          <label>Password: </label>
+          <label className="form-label m-2">Password: </label>
           <input
+            className="form-control"
             name="password"
             type="password"
             value={credentials.password}
@@ -27,7 +31,7 @@ const Login = () => {
           />
         </div>
         <div className="buttonContainer">
-          <button type="submit">Login</button>
+          <button className="btn btn-primary" type="submit">Login</button>
         </div>
       </form>
     </div>
