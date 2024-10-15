@@ -15,7 +15,6 @@
 .cardContainer {
   display: flex;
   align-items: center;
-  width: calc(25% - 30px); /* Adjust to 25% for four cards per row */
   max-width: 300px;
   height: 600px;
   border-radius: 15px;
@@ -26,7 +25,7 @@
 }
 
 .cardContainer h1 {
-  min-height:100px;
+  min-height:120px;
   max-height:100px;
   margin:10px;
   color: black;
@@ -43,18 +42,25 @@
 .cardContainer p {
   min-height:100px;
   max-height:100px;
-  margin:10px; 
+  margin:0px; 
   color: black;
 }
 
 .cardContainer button {
-  width:150px;
-  background-color: grey;
+  width: 100px;
+  background-color: black;
   color: white;
   border: none;
   border-radius: 15px;
+  font-size: 12px;
 }
 
 .cardContainer button:hover {
   background-color: #2563eb;
+}
+
+.allButtons{
+  display: flex;
+  flex-direction: row;
+  gap:10px
 }

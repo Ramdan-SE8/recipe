@@ -2,109 +2,113 @@ import { useState, useEffect } from "react";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import "./App.css";
 import Recipe from "./components/Recipe";
-import { Card } from "./components/Card";
+import Root from "./components/Root";
+import About from "./components/About";
+import Fav from "./components/Fav";
+import Profile from "./components/Profile";
+import Login from "./components/Login";
+import AddRecipe from "./components/AddRecipe";
+import Card from "./components/Card";
+import recipeAPI from "./api/recipe";
+import { IsEditingProvider } from "./context/isEditingContext";
+import ProtectedRoute from "./components/ProtectedRoute";
 
 function App() {
   const [items, setItems] = useState([]);
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [favorites, setFavorites] = useState([]);
 
+  // API to get all the recipes
+  const getRecipe = async () => {
+    try {
+      const response = await recipeAPI.get("/recipe");
+      setItems(response.data);
+    } catch (error) {
+      console.error("Error getting recipes:", error);
+    }
+  };
+
+  // using useEffect to only display the recipes on first render
   useEffect(() => {
-    setItems(dummyCardList);
+    getRecipe();
   }, []);
 
-  console.log(items);
+  const toggleFavorite = (id) => {
+    setFavorites((prevFavorites) =>
+      prevFavorites.includes(id)
+        ? prevFavorites.filter((favId) => favId !== id)
+        : [...prevFavorites, id]
+    );
+  };
+
   return (
     <>
-      {items.length > 0 ? (
-        <Recipe itemId={items[0].id} items={items} />
-      ) : (
-        <p>Loading recipe...</p>
-      )}
+      <BrowserRouter>
+        <IsEditingProvider>
+          <Routes>
+            <Route path="/" element={<Root />}>
+              <Route
+                index
+                element={
+                  <Card
+                    items={items}
+                    favorites={favorites}
+                    toggleFavorite={toggleFavorite}
+                  />
+                }
+              />
+              <Route path="about" element={<About />} />
+              <Route
+                path="add"
+                element={
+                  <ProtectedRoute>
+                    <AddRecipe refreshRecipes={getRecipe} />
+                  </ProtectedRoute>
+                }
+              />
+              <Route
+                path="recipe/:id"
+                element={
+                  <ProtectedRoute>
+                    <Recipe
+                      items={items}
+                      favorites={favorites}
+                      toggleFavorite={toggleFavorite}
+                      refreshRecipes={getRecipe}
+                    />
+                  </ProtectedRoute>
+                }
+              />
+              {/* <Route path="fav" element={<Fav />} /> */}
+              <Route
+                path="fav"
+                element={
+                  <ProtectedRoute>
+                    <Fav
+                      favoriteItems={items.filter((item) =>
+                        favorites.includes(item.id)
+                      )}
+                      favorites={favorites}
+                      toggleFavorite={toggleFavorite}
+                    />
+                  </ProtectedRoute>
+                }
+              />
 
-<div className="App">
-      <div className="col">
-        <Card
-          imgSrc="./src/assets/images/image.png"
-          imgAlt="Card Image 1"
-          title="Recipe Name"
-          description="This is the recipe description section. You can add more details about the recipe here"
-          buttonText="Learn More"
-          link="card2"
-        />
-        <Card
-          imgSrc="./src/assets/images/beefchilli.jpg"
-          imgAlt="Card Image 2"
-          title="Recipe Name"
-          description="This is the recipe description section. You can add more details about the recipe here"
-          buttonText="Learn More"
-          link="card2"
-        />
-        <Card
-          imgSrc="./src/assets/images/carrotmuffin.jpg"
-          imgAlt="Card Image 3"
-          title="Recipe Name"
-          description="This is the recipe description section. You can add more details about the recipe here"
-          buttonText="Learn More"
-          link="card2"
-        />
-      </div>
-      <div className="col">
-        <Card
-          imgSrc="./src/assets/images/djonmustardsalmon.jpg"
-          imgAlt="Card Image 1"
-          title="Recipe Name"
-          description="This is the recipe description section. You can add more details about the recipe here"
-          buttonText="Learn More"
-          link="card1"
-        />
-        <Card
-          imgSrc="./src/assets/images/eggplant.jpeg"
-          imgAlt="Card Image 3"
-          title="Recipe Name"
-          description="This is the recipe description section. You can add more details about the recipe here"
-          buttonText="Learn More"
-          link="card2"
-        />
-        <Card
-          imgSrc="./src/assets/images/garlicpotatoes.jpg"
-          imgAlt="Card Image 3"
-          title="Recipe Name"
-          description="This is the recipe description section. You can add more details about the recipe here"
-          buttonText="Learn More"
-          link="card2"
-        />
-      </div>
-      <div className="col">
-        <Card
-          imgSrc="./src/assets/images/image.png"
-          imgAlt="Card Image 1"
-          title="Recipe Name"
-          description="This is the recipe description section. You can add more details about the recipe here"
-          buttonText="Learn More"
-          link="card2"
-        />
-        <Card
-          imgSrc="./src/assets/images/beefchilli.jpg"
-          imgAlt="Card Image 2"
-          title="Recipe Name"
-          description="This is the recipe description section. You can add more details about the recipe here"
-          buttonText="Learn More"
-          link="card2"
-        />
-        <Card
-          imgSrc="./src/assets/images/carrotmuffin.jpg"
-          imgAlt="Card Image 3"
-          title="Recipe Name"
-          description="This is the recipe description section. You can add more details about the recipe here"
-          buttonText="Learn More"
-          link="card2"
-        />
-      </div>
-      
-    </div>
+              <Route
+                path="profile"
+                element={
+                  <ProtectedRoute>
+                    <Profile />
+                  </ProtectedRoute>
+                }
+              />
+              <Route path="login" element={<Login />} />
+            </Route>
+          </Routes>
+        </IsEditingProvider>
+      </BrowserRouter>
     </>
   );
 }
-
 
 export default App;

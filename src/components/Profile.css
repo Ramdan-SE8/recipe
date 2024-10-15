@@ -1,0 +1,28 @@
+.profile-container {
+  display:flex;
+  flex-direction: column;
+  width:90vw;
+  margin: 0;
+  position:relative;
+  left:50%;
+  transform: translateX(-50%);  
+  color:white;
+  border-radius: 15px;
+  box-sizing: border-box; 
+  align-items: center;
+  }
+  
+  .profile-card {
+    border-radius: 10px;
+    padding: 20px;
+    text-align: center;
+    width: 300px;
+  }
+  
+  .profile-avatar {
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    object-fit: cover;
+  }
+

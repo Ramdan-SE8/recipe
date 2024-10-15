@@ -1,4 +1,4 @@
-.details {
+.container {
     display: flex;
     flex-direction: column;
     width:90vw;
@@ -12,12 +12,22 @@
     position:relative;
     left:50%;
     transform: translateX(-50%);  
+    padding: 0;
+    overflow: hidden;
 }
-
-.details img{
-    height:300px;
-    object-fit: cover;
-    border-radius: 20px;
+.details{
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    max-width: 400px;
+    gap:25px;
+    padding:60px 0 0 0;
+    margin: 0px;
+}
+.container img{
+    width: 90vw;
+    height: 800px;    
+    object-fit:cover;
 }
 
 .ingredientsList{
@@ -27,25 +37,17 @@
     padding:0px;
     margin: 0px;
     justify-content: center;
-    align-items: flex;
+    align-items: center;
+    gap:10px
 }
 
 .ingredientsList li{
     display: flex;
     justify-content: center;
     align-items: center;
-    margin: 5px; 
     list-style-type: none; 
     box-sizing: border-box; 
     font-size: 15px;
-}
-
-hr {
-    border: 0; 
-    height: 1px;
-    width: 80vw;
-    background-color:black; 
-    
 }
 
 .steps{
@@ -78,20 +80,35 @@ font-size: 15px;
     padding-right: 20px;
     text-align: left;
     font-size: 15px;
-
 }
 
-
-.details  button {
-    max-width:50px;
-    background-color: grey;
+.container  button {
+    width: 100px;
+    background-color: black;
     color: white;
     border: none;
     border-radius: 15px;
-    font-size: 10px;
+    font-size: 12px;
     margin-bottom: 20px;
   }
-  
-.details button:hover {
+
+.container button:hover {
     background-color: #2563eb;
-  }
+}
+.buttonGroup {
+    display: flex;
+    flex-direction: row;
+    gap:10px;
+    
+}
+.container p{
+    margin:0px 5px 0px 5px;
+}
+.container h1{
+    margin:15px 5px 0px 5px;
+}
+.container h2{
+    margin:30px 5px 0px 5px;
+}
+
+
