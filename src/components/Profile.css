@@ -6,7 +6,7 @@
   position:relative;
   left:50%;
   transform: translateX(-50%);  
-  color:white;
+  /* color:white; */
   border-radius: 15px;
   box-sizing: border-box; 
   align-items: center;

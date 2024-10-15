@@ -132,11 +132,11 @@ const AddRecipe = ({ refreshRecipes }) => {
           <h1 className={styles.text}>
             {!isEditing ? "Add Recipe" : "Edit Recipe"}
           </h1>
-          <button className={styles.button} onClick={handlerSubmit}>
+          <button className="btn btn-primary" onClick={handlerSubmit}>
             {!isEditing ? "Add" : "Save"}
           </button>
           <button
-            className={styles.button}
+            className="btn btn-outline-secondary"
             type="button"
             onClick={handlerCancel}
           >
@@ -144,9 +144,9 @@ const AddRecipe = ({ refreshRecipes }) => {
           </button>
         </div>
         <div className={styles.group}>
-          <label className={styles.label}> Title: </label>
+          <label className={`form-label ${styles.label}`}> Title: </label>
           <input
-            className={styles.input}
+            className="form-control"
             name="title"
             type="text"
             onChange={handlerInput}
@@ -154,9 +154,9 @@ const AddRecipe = ({ refreshRecipes }) => {
           />
         </div>
         <div className={styles.group}>
-          <label className={styles.label}> Description: </label>
+          <label className={`form-label ${styles.label}`}> Description: </label>
           <textarea
-            className={styles.input}
+            className="form-control"
             name="description"
             type="text"
             onChange={handlerInput}
@@ -165,9 +165,9 @@ const AddRecipe = ({ refreshRecipes }) => {
         </div>
 
         <div className={styles.group}>
-          <label className={styles.label}> Image URL: </label>
+          <label className={`form-label ${styles.label}`}> Image URL: </label>
           <textarea
-            className={styles.input}
+            className="form-control"
             name="imgSrc"
             type="text"
             onChange={handlerInput}
@@ -179,9 +179,9 @@ const AddRecipe = ({ refreshRecipes }) => {
         {/* map out the array inside ingredients state and display a text area for user to input */}
         {ingredients.map((ingredient, index) => (
           <div className={styles.group} key={index}>
-            <label className={styles.label}>Ingredient {index + 1} :</label>
+            <label className={`form-label ${styles.label}`}>Ingredient {index + 1} :</label>
             <textarea
-              className={styles.input}
+              className="form-control"
               name="ingredients"
               type="text"
               value={ingredient}
@@ -203,9 +203,9 @@ const AddRecipe = ({ refreshRecipes }) => {
         {/* map out the array inside steps state and display a text area for user to input */}
         {steps.map((step, index) => (
           <div className={styles.group} key={index}>
-            <label className={styles.label}>Step {index + 1} :</label>
+            <label className={`form-label ${styles.label}`}>Step {index + 1} :</label>
             <textarea
-              className={styles.input}
+              className="form-control"
               name="steps"
               type="text"
               value={step}

@@ -32,9 +32,10 @@
   overflow: hidden;
   font-size: 35px;
 }
-.cardContainer img {
+.cardContainerImage {
   width:100%;
-  min-height:300px;
+  height:30vh;
+  min-height:100px;
   max-height:300px;
   object-fit: cover;
 }
@@ -62,5 +63,6 @@
 .allButtons{
   display: flex;
   flex-direction: row;
-  gap:10px
+  gap:10px;
+  justify-content: center;
 }

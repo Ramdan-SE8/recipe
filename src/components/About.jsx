@@ -8,31 +8,31 @@ import styles from "./About.module.css";
 const About = () => {
   return (
     <>
-      <h1>About Us</h1>
-      <h2>This is created during the SCTPSWE Cohort 8 by:</h2>
+      <h1 style={{ marginBottom: '40px' }}>About Us</h1>
+      <h2 style={{ marginBottom: '40px' }}>This is created during the SCTPSWE Cohort 8 by:</h2>
       <div className={styles.teamContainer}>
         <a href="https://github.com/FaizalHH">
           <div>
             <img src={faizal} alt="avatar" />
-            <h3>Faizal</h3>
+            <h5>Faizal</h5>
           </div>
         </a>
         <a href="https://github.com/jianxunbak">
           <div>
             <img src={jianxun} alt="avatar" />
-            <h3>Jian Xun</h3>
+            <h5>Jian Xun</h5>
           </div>
         </a>
         <a href="https://github.com/k3lly-z">
           <div>
             <img src={keer} alt="avatar" />
-            <h3>Ke Er</h3>
+            <h5>Ke Er</h5>
           </div>
         </a>
         <a href="https://github.com/Ramdan-SE8">
           <div>
             <img src={ramdan} alt="avatar" />
-            <h3>Ramdan</h3>
+            <h5>Ramdan</h5>
           </div>
         </a>
       </div>

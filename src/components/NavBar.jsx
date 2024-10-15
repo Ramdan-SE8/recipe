@@ -72,7 +72,7 @@ const NavBar = () => {
             Log in
           </NavLink>
         ) : (
-          <button onClick={handleLogout}>Log Out</button>
+          <button className="btn btn-outline-dark" onClick={handleLogout}>Log Out</button>
         )}
         {isLoggedIn && (
           <p className={styles.credentials}>Hello, {loggedInUsername}!</p>
