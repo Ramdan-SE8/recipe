@@ -12,7 +12,7 @@ export function UserProvider({ children }) {
   const [loggedInUsername, setLoggedInUsername] = useState("");
   const navigate = useNavigate();
 
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [isLoggedIn, setIsLoggedIn] = useState(true);
 
   const handleCredentialsChange = (event) => {
     setCredentials((prevCredentials) => {

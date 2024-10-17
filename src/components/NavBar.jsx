@@ -12,7 +12,7 @@ const NavBar = () => {
   const { isEditing } = editCtx;
   return (
     <>
-      <p className={styles.bar}>
+      <div className={styles.bar}>
         <NavLink
           to="/"
           className={({ isActive }) =>
@@ -72,12 +72,14 @@ const NavBar = () => {
             Log in
           </NavLink>
         ) : (
-          <button className="btn btn-outline-dark" onClick={handleLogout}>Log Out</button>
+          <button className="btn btn-outline-dark" onClick={handleLogout}>
+            Log Out
+          </button>
         )}
         {isLoggedIn && (
           <p className={styles.credentials}>Hello, {loggedInUsername}!</p>
         )}
-      </p>
+      </div>
     </>
   );
 };
