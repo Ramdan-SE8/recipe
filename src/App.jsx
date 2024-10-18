@@ -10,8 +10,8 @@ import Login from "./components/Login";
 import AddRecipe from "./components/AddRecipe";
 import Card from "./components/Card";
 import recipeAPI from "./api/recipe";
-import { IsEditingProvider } from "./context/isEditingContext";
 import ProtectedRoute from "./components/ProtectedRoute";
+import { IsEditingAndLoadingProvider } from "./context/IsLoadingandEditingContext";
 
 function App() {
   const [items, setItems] = useState([]);
@@ -43,7 +43,7 @@ function App() {
   return (
     <>
       <BrowserRouter>
-        <IsEditingProvider>
+        <IsEditingAndLoadingProvider>
           <Routes>
             <Route path="/" element={<Root />}>
               <Route
@@ -105,7 +105,7 @@ function App() {
               <Route path="login" element={<Login />} />
             </Route>
           </Routes>
-        </IsEditingProvider>
+        </IsEditingAndLoadingProvider>
       </BrowserRouter>
     </>
   );

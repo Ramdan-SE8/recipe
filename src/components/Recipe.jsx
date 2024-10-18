@@ -2,14 +2,14 @@ import { useNavigate, useParams } from "react-router-dom";
 import styles from "/src/components/Recipe.module.css";
 import recipeAPI from "../api/recipe";
 import { useContext } from "react";
-import { IsEditingContext } from "../context/isEditingContext";
+import { IsEditingAndLoadingContext } from "../context/IsLoadingandEditingContext";
 
 const Recipe = ({ items, favorites, toggleFavorite, refreshRecipes }) => {
   // Get the id from the URL params
   const { id } = useParams();
 
   const navigate = useNavigate();
-  const editCtx = useContext(IsEditingContext);
+  const editCtx = useContext(IsEditingAndLoadingContext);
   const { setIsEditing } = editCtx;
 
   // Find the selected item based on id passed from params

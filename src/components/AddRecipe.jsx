@@ -3,8 +3,8 @@ import styles from "./AddRecipe.module.css";
 import { v4 as uuid } from "uuid";
 import recipeAPI from "../api/recipe";
 import { useNavigate, useLocation } from "react-router-dom";
-import { IsEditingContext } from "../context/isEditingContext";
 import Joi from "joi-browser";
+import { IsEditingAndLoadingContext } from "../context/IsLoadingandEditingContext";
 
 const AddRecipe = ({ refreshRecipes }) => {
   const navigate = useNavigate();
@@ -18,8 +18,8 @@ const AddRecipe = ({ refreshRecipes }) => {
     ingredients: [""],
     steps: [""],
   });
-  const editCtx = useContext(IsEditingContext);
-  const { isEditing, setIsEditing } = editCtx;
+  const editCtx = useContext(IsEditingAndLoadingContext);
+  const { isEditing, setIsEditing, isLoading, setIsLoading } = editCtx;
 
   // Validation
   const [formErrors, setFormErrors] = useState({
@@ -53,6 +53,7 @@ const AddRecipe = ({ refreshRecipes }) => {
   // API call to add new recipe
   const addRecipe = async (recipe) => {
     try {
+      setIsLoading(true);
       const response = await recipeAPI.post("/recipe", recipe);
       console.log("Recipe added:", response.data);
       refreshRecipes();
@@ -63,11 +64,13 @@ const AddRecipe = ({ refreshRecipes }) => {
       alert(
         `item added:\nTitle: ${recipe.title}\nDescription: ${recipe.description}\nIngredients: ${recipe.ingredients}\nRecipe: ${recipe.steps}`
       );
+      setIsLoading(false);
     }
   };
 
   const editRecipe = async (recipe) => {
     try {
+      setIsLoading(true);
       const response = await recipeAPI.put(`/recipe/${recipe.id}`, recipe);
       console.log("Recipe edited:", response.data);
       refreshRecipes();
@@ -79,6 +82,7 @@ const AddRecipe = ({ refreshRecipes }) => {
       alert(
         `item edited:\nTitle: ${recipe.title}\nDescription: ${recipe.description}\nIngredients: ${recipe.ingredients}\nRecipe: ${recipe.steps}`
       );
+      setIsLoading(false);
     }
   };
 
@@ -267,6 +271,7 @@ const AddRecipe = ({ refreshRecipes }) => {
     if (error) return error.details[0].message;
     else return null;
   };
+
   return (
     <>
       <div className={styles.form}>
@@ -274,7 +279,11 @@ const AddRecipe = ({ refreshRecipes }) => {
           <h1 className={styles.text}>
             {!isEditing ? "Add Recipe" : "Edit Recipe"}
           </h1>
-          <button className="btn btn-primary" onClick={handlerSubmit}>
+          <button
+            className="btn btn-primary"
+            onClick={handlerSubmit}
+            disabled={isLoading}
+          >
             {!isEditing ? "Add" : "Save"}
           </button>
           <button
